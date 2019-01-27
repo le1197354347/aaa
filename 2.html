@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <title>html5向左滑动删除特效</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* a {
+            
+        } */
+
+        .list {
+            overflow: hidden;
+            padding-left: .3rem;
+        }
+
+        .list li {
+            overflow: hidden;
+            width: 120%;
+            /* border-bottom: 1px solid #ddd; */
+            height: 80px;
+        }
+
+        .list li a {
+            display: block;
+            height: .88rem;
+            line-height: 5.5rem;
+            transition: all 0.3s linear;
+            font-size: 1.5rem;
+            color: #393939;
+            text-decoration: none;
+        }
+
+        .list li i {
+            float: right;
+            width: 15%;
+            text-align: center;
+            background: #E2421B;
+            color: #fff;
+            font-size: 1.5rem;
+        }
+
+        .swipeleft {
+            transform: translateX(-15%);
+            /* translateX  定义2D转换，只是用 X 轴的值。 */
+        }
+    </style>
+
+</head>
+
+<body>
+    <section>
+        <div class="list">
+            <ul>
+                <li><a href="#">侧滑显示删除按钮1<i>删除</i></a></li>
+                <li><a href="#">侧滑显示删除按钮2<i>删除</i></a></li>
+                <li id="cat1"><a href="#">侧滑显示删除按钮3<i id="cat">删除</i></a></li>
+            </ul>
+        </div>
+        <script>
+            //侧滑显示删除按钮
+            var expansion = null; //是否存在展开的list
+            var container = document.querySelectorAll('.list li a');
+            for (var i = 0; i < container.length; i++) {
+                var x, y, X, Y, swipeY;
+                container[i].addEventListener('touchstart', function (event) { //touchstart事件：当手指触摸屏幕时候触发
+                    x = event.changedTouches[0].pageX; //changedTouches: 涉及当前(引发)事件的触摸点的列表
+                    y = event.changedTouches[0].pageY;
+                });
+                container[i].addEventListener('touchmove', function (event) { //touchmove事件：当手指在屏幕上滑动的时候连续地触发。在这个事件发生期间，调用preventDefault()事件可以阻止滚动。
+
+                    X = event.changedTouches[0].pageX; //鼠标在页面中的x坐标
+                    Y = event.changedTouches[0].pageY; //鼠标在页面中的y坐标
+                    // 左右滑动
+                    if (Math.abs(X - x) - Math.abs(Y - y) > 0) {
+                        // 阻止事件冒泡
+                        // event.stopPropagation();  //终止事件在传播过程的捕获、目标处理或起泡阶段进一步传播
+                        if (X - x > 10) { //右滑
+                            // event.preventDefault(); //取消事件的默认动作。
+                            this.className = ""; //右滑收起
+                        }
+                        if (x - X > 10) { //左滑
+                            // event.preventDefault();
+                            this.className = "swipeleft"; //左滑展开
+
+                        }
+                    }
+                });
+            }
+            cat.onclick=function(){
+                cat1.innerHTML = "";
+            }
+        </script>
+
+
+        </head>
+
+        <body>
+
+        </body>
+
+</html>
